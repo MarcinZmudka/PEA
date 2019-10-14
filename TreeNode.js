@@ -1,20 +1,25 @@
 class TreeNode {
   constructor(key, node, arrayOfNodes) {
     this.key = key;
-    this.nodes = node; 
+    this.nodes = node;
     this.arrayOfNodes = arrayOfNodes;
     this.kids = [];
   }
-  removeMyself(){
-     this.arrayOfNodes = this.arrayOfNodes.filter(node => node.key != this.key);
+  removeMyself() {
+    this.arrayOfNodes = this.arrayOfNodes.filter(item => !this.nodes.includes(item));
   }
   makeChildren() {
     this.arrayOfNodes.map(node => {
-      this.kids.push(new TreeNode(node.key, [ node, ...this.nodes], this.arrayOfNodes));
-    })
+      this.kids.push(
+        new TreeNode(node.key, [ ...this.nodes, node], this.arrayOfNodes)
+      );
+    });
   }
-  getKids(){
+  getKids() {
     return this.kids;
+  }
+  getLengthOfArrayOfNodes(){
+    return this.arrayOfNodes.length;
   }
 }
 export default TreeNode;

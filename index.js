@@ -1,8 +1,21 @@
 import nodes from "./importer.js";
 import TreeNode from "./TreeNode.js";
+import UpReckon from "./Reckon.js";
+import Handler from "./Handler.js";
 
-//console.log((nodes));
+// console.log((nodes));
 const treeNode = new TreeNode(0, [nodes[0]], nodes);
-treeNode.removeMyself();
-treeNode.makeChildren();
-console.log(treeNode.getKids());
+// treeNode.removeMyself();
+// treeNode.makeChildren();
+// // console.log(treeNode.getKids());
+// const newBorn = treeNode.getKids()[0];
+// const reckon = new UpReckon();
+// newBorn.removeMyself();
+// newBorn.makeChildren();
+// reckon.initTrain(newBorn.getKids()[0].nodes);
+// reckon.hitchNewElement();
+// console.log(reckon.returnQue());
+const handler = new Handler();
+handler.setGenerations([treeNode]);
+handler.start();
+console.log(handler.state.bestGeneration);
