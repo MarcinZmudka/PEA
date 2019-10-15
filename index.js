@@ -19,3 +19,4 @@ const handler = new Handler();
 handler.setGenerations([treeNode]);
 handler.start();
 console.log(handler.state.bestGeneration);
+console.log(handler.state.valuesOfGenerations);

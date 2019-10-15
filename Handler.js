@@ -15,10 +15,11 @@ class Handler {
     const kids = this.state.generations;
     const upReckon = new UpReckon();
     kids.map(kid => {
-      upReckon.initTrain(kid);
+      upReckon.initTrain(kid.nodes);
       while (upReckon.isAnyInLeft()) {
         upReckon.hitchNewElement();
       }
+      //console.log(upReckon.down);
       this.state.valuesOfGenerations.push(upReckon.down);
     });
   }
