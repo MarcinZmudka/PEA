@@ -2,21 +2,11 @@ import nodes from "./importer.js";
 import TreeNode from "./TreeNode.js";
 import UpReckon from "./Reckon.js";
 import Handler from "./Handler.js";
+import BruteForce from "./BruteForce.js";
+const array = [1,2,3];
+const bruteForce = new BruteForce(nodes);
+bruteForce.start();
+// console.log(bruteForce.bestValue);
 
-// console.log((nodes));
-const treeNode = new TreeNode(0, [nodes[0]], nodes);
-// treeNode.removeMyself();
-// treeNode.makeChildren();
-// // console.log(treeNode.getKids());
-// const newBorn = treeNode.getKids()[0];
-// const reckon = new UpReckon();
-// newBorn.removeMyself();
-// newBorn.makeChildren();
-// reckon.initTrain(newBorn.getKids()[0].nodes);
-// reckon.hitchNewElement();
-// console.log(reckon.returnQue());
-const handler = new Handler();
-handler.setGenerations([treeNode]);
-handler.start();
-console.log(handler.state.bestGeneration);
-console.log(handler.state.valuesOfGenerations);
+
+
