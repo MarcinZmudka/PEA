@@ -28,8 +28,8 @@ class Handler {
       return a - b;
     };
     const newArray = [...this.state.valuesOfGenerations].sort(compare); //tworzymy nową tablicę i sortujemy z pomocą funckji porównującejm ponieważ sort służy w domyśle do sortowania napisów
-    const best = this.state.valuesOfGenerations.indexOf(newArray[0]);
-    this.state.bestGeneration = this.state.generations[best];
+    const best = this.state.valuesOfGenerations.indexOf(newArray[0]); // bierzemy najlepszą wartość
+    this.state.bestGeneration = this.state.generations[best]; // i wstawiamy do tablicy najlepszej generacji
   }
   makeNewGeneration() {
     this.state.bestGeneration.removeMyself();
@@ -44,6 +44,14 @@ class Handler {
       this.countValuesOfGenerations();
       this.findTheBestValue();
     }
+    //this.addLastStep();
+    //this.findTheBestValue();
+  }
+  addLastStep(){
+    const first = this.bestGeneration[0];
+    const last = this.bestGeneration[this.bestGeneration.length-1];
+    const value  = last.elements[first.key].attributes.cost;
+    this.b
   }
 }
 

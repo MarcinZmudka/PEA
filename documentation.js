@@ -9,3 +9,7 @@ handler.setGenerations([treeNode]);
 handler.start();
 console.log(handler.state.bestGeneration);
 console.log(handler.state.valuesOfGenerations);
+/*Brute*/
+const bruteForce = new BruteForce(nodes);
+bruteForce.start();
+console.log(bruteForce.bestValue);
