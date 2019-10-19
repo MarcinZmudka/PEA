@@ -2,16 +2,16 @@ import UpReckon from "./Reckon.js";
 
 class Handler {
   state = {
-    bestGeneration: null,
-    generations: null,
-    valuesOfGenerations: []
+    bestGeneration: null, //najlepsza geenracja
+    generations: null, // wszystkie generacje
+    valuesOfGenerations: [] //wartości wszystkcih generacji
   };
   setGenerations(kids) {
     this.state.generations = kids;
     this.state.bestGeneration = null;
     this.state.valuesOfGenerations = [];
   }
-  countValuesOfGenerations() {
+  countValuesOfGenerations() { //obliczamy wartości generacji
     const kids = this.state.generations;
     const upReckon = new UpReckon();
     kids.map(kid => {
@@ -19,7 +19,6 @@ class Handler {
       while (upReckon.isAnyInLeft()) {
         upReckon.hitchNewElement();
       }
-      //console.log(upReckon.down);
       this.state.valuesOfGenerations.push(upReckon.down);
     });
   }

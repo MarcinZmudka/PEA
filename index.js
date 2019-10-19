@@ -1,16 +1,22 @@
-import nodes from "./importer.js";
+import importer from "./importer.js";
 import TreeNode from "./TreeNode.js";
 import UpReckon from "./Reckon.js";
 import Handler from "./Handler.js";
 import BruteForce from "./BruteForce.js";
 import makeUML from "./makeXML";
 
-const array = [1,2,3];
-const bruteForce = new BruteForce(nodes);
-bruteForce.start();
-console.log(bruteForce.bestValue);
-console.log(bruteForce.que);
+const nodes = importer(5, 0);
+// const bruteForce = new BruteForce(nodes);
+// bruteForce.start();
+// console.log(bruteForce.bestValue);
+// console.log(bruteForce.que);
 // console.log(bruteForce.count);
-
-// const xml = new makeUML(5 , 5);
-// xml.start("5");
+const date = process.hrtime();
+const treeNode = new TreeNode(0, [nodes[0]], nodes);
+const handler = new Handler();
+handler.setGenerations([treeNode]);
+handler.start();
+console.log(handler.state.bestGeneration);
+console.log(handler.state.valuesOfGenerations);
+const date1 = new Date();
+console.log("time",process.hrtime()[1] - date[1]);

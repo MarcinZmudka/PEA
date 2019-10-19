@@ -15,8 +15,8 @@ class makeUML {
   lastLine() {
     this.text += "</travellingSalesmanProblemInstance>";
   }
-  writeFile(name) {
-    fs.writeFileSync(`./files/${name}.xml`,this.text , "utf8");
+  writeFile(folder, name) {
+    fs.writeFileSync(`./files/${folder}/${name}.xml`,this.text , "utf8");
     this.text = "";
   }
   makeGraph() {
@@ -40,7 +40,7 @@ class makeUML {
       this.firstLine();
       this.makeGraph();
       this.lastLine();
-      this.writeFile(`${name}_${i}`);
+      this.writeFile(name,`${name}v${i}`);
     }
   }
 }

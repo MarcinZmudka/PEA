@@ -13,3 +13,6 @@ console.log(handler.state.valuesOfGenerations);
 const bruteForce = new BruteForce(nodes);
 bruteForce.start();
 console.log(bruteForce.bestValue);
+/*Make XML*/
+const xml = new makeUML(100 , 17);
+xml.start("17");
