@@ -5,7 +5,7 @@ class Handler {
   state = {
     bestGeneration: null, //najlepsza geenracja
     generations: null, // wszystkie generacje
-    valuesOfGenerations: [] //wartości wszystkcih generacji
+    valuesOfGenerations: [], //wartości wszystkcih generacji
   };
   setGenerations(kids) {
     this.state.generations = kids;
@@ -41,14 +41,13 @@ class Handler {
       this.countValuesOfGenerations();
       this.findTheBestValue();
     }
-    //this.addLastStep();
-    //this.findTheBestValue();
+    this.addLastStep();
   }
   addLastStep(){
-    const first = this.state.bestGeneration[0];
-    const last = this.state.bestGeneration[this.state.bestGeneration.length-1];
+    const first = this.state.bestGeneration.nodes[0];
+    const last = this.state.bestGeneration.nodes[this.state.bestGeneration.nodes.length-1];
     const value  = last.elements[first.key].attributes.cost;
-    this.state.valuesOfGenerations
+    this.state.valuesOfGenerations[0] +=   parseFloat(value);
   }
 }
 

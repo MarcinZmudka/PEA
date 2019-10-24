@@ -2,11 +2,11 @@ class Timer{
     constructor(){
         this.count = [];
     }
-    start(){
-        this.start = process.hrtime();
+    start1(){
+        this.start = process.hrtime()[1];
     }
-    count(){
-        this.count.push(process.hrtime() - this.start)
+    count1(){
+        this.count.push(process.hrtime()[1] - this.start);
         console.log(this.count);
     }
 }

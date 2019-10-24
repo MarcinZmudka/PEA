@@ -3,12 +3,26 @@ elements[4] // krawędź prowadząca do węzła numer 5
 .attributes.cost // koszt krawędzi
 
 /*Bound*/
-const treeNode = new TreeNode(0, [nodes[0]], nodes);
+const arrayOfTrees = [];
+const arrayOfValues = [];
+const arrayOfNodes = [];
 const handler = new Handler();
-handler.setGenerations([treeNode]);
-handler.start();
-console.log(handler.state.bestGeneration);
-console.log(handler.state.valuesOfGenerations);
+
+for(let i =0; i<nodes.length; i++){
+    arrayOfTrees.push(new TreeNode(0, [nodes[i]], nodes));
+    handler.setGenerations([arrayOfTrees[i]]);
+    handler.start();
+    arrayOfValues.push(handler.state.valuesOfGenerations);
+    arrayOfNodes.push(handler.state.bestGeneration);
+}
+//znajdowanie wyniku
+const compare = (a, b) => {
+    return a - b;
+};
+const sortedValues = [...arrayOfValues].sort(compare);
+const index = arrayOfValues.indexOf(sortedValues[0]);
+const winner = [arrayOfValues[index], arrayOfNodes[index].nodes];
+console.log(winner);
 /*Brute*/
 const bruteForce = new BruteForce(nodes);
 bruteForce.start();
