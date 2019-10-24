@@ -1,4 +1,5 @@
 import UpReckon from "./Reckon.js";
+import Count from "./Count.js";
 
 class Handler {
   state = {
@@ -13,13 +14,10 @@ class Handler {
   }
   countValuesOfGenerations() { //obliczamy wartości generacji
     const kids = this.state.generations;
-    const upReckon = new UpReckon();
+    const counter = new Count();
     kids.map(kid => {
-      upReckon.initTrain(kid.nodes);
-      while (upReckon.isAnyInLeft()) {
-        upReckon.hitchNewElement();
-      }
-      this.state.valuesOfGenerations.push(upReckon.down);
+      counter.count(kid.nodes);
+      this.state.valuesOfGenerations.push(counter.getValue());
     });
   }
   findTheBestValue() {
@@ -30,7 +28,7 @@ class Handler {
     const best = this.state.valuesOfGenerations.indexOf(newArray[0]); // bierzemy najlepszą wartość
     this.state.bestGeneration = this.state.generations[best]; // i wstawiamy do tablicy najlepszej generacji
   }
-  makeNewGeneration() {
+  makeNewGeneration() { //tworzymy nowe dzieci
     this.state.bestGeneration.removeMyself();
     this.state.bestGeneration.makeChildren();
     this.setGenerations(this.state.bestGeneration.getKids());
@@ -47,10 +45,10 @@ class Handler {
     //this.findTheBestValue();
   }
   addLastStep(){
-    const first = this.bestGeneration[0];
-    const last = this.bestGeneration[this.bestGeneration.length-1];
+    const first = this.state.bestGeneration[0];
+    const last = this.state.bestGeneration[this.state.bestGeneration.length-1];
     const value  = last.elements[first.key].attributes.cost;
-    this.b
+    this.state.valuesOfGenerations
   }
 }
 
