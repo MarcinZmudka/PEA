@@ -6,8 +6,9 @@ import BruteForce from "./BruteForce.js";
 import makeUML from "./makeXML";
 import Count from "./Count.js";
 import Timer1 from "./timer.js";
-
-const nodes = importer(5, 0);
+import menu from "./menu";
+menu();
+//const nodes = importer(5, 0);
 // const bruteForce = new BruteForce(nodes);
 // bruteForce.start();
 // console.log(bruteForce.bestValue);
@@ -20,34 +21,36 @@ const nodes = importer(5, 0);
 // handler.start();
 // console.log(handler.state.bestGeneration);
 // console.log(handler.state.valuesOfGenerations);
+// const timer1 = new Timer1();
+// function runBB(nodes) {
+//   const arrayOfTrees = [];
+//   const arrayOfValues = [];
+//   const arrayOfNodes = [];
+//   const handler = new Handler();
 
-
-const arrayOfTrees = [];
-const arrayOfValues = [];
-const arrayOfNodes = [];
-const handler = new Handler();
-const timer1 = new Timer1();
-timer1.start1();
-for(let i =0; i<nodes.length; i++){
-    arrayOfTrees.push(new TreeNode(0, [nodes[i]], nodes));
-    handler.setGenerations([arrayOfTrees[i]]);
-    handler.start();
-    arrayOfValues.push(handler.state.valuesOfGenerations);
-    arrayOfNodes.push(handler.state.bestGeneration);
-}
-//znajdowanie wyniku
-const compare = (a, b) => {
-    return a - b;
-};
-const sortedValues = [...arrayOfValues].sort(compare);
-const index = arrayOfValues.indexOf(sortedValues[0]);
-const winner = [arrayOfValues[index], arrayOfNodes[index].nodes];
-timer1.count1();
-console.log(winner);
-console.log("bruteforce");
-timer1.start1();
-const bruteForce = new BruteForce(nodes);
-bruteForce.start();
-console.log(bruteForce.bestValue);
-console.log(bruteForce.que);
-timer1.count1();
+//   timer1.init();
+//   for (let i = 0; i < nodes.length; i++) {
+//     arrayOfTrees.push(new TreeNode(0, [nodes[i]], nodes));
+//     handler.setGenerations([arrayOfTrees[i]]);
+//     handler.start();
+//     arrayOfValues.push(handler.state.valuesOfGenerations);
+//     arrayOfNodes.push(handler.state.bestGeneration);
+//   }
+//   //znajdowanie wyniku
+//   const compare = (a, b) => {
+//     return a - b;
+//   };
+//   const sortedValues = [...arrayOfValues].sort(compare);
+//   const index = arrayOfValues.indexOf(sortedValues[0]);
+//   const winner = [arrayOfValues[index], arrayOfNodes[index].nodes];
+//   timer1.submit();
+// }
+// for(let i =0; i<100; i++){
+//     const nodes = importer(5, i);
+//     runBB(nodes);
+// }
+// let value = 0;
+// for(let i =0; i<100; i++){
+//     value+= timer1.count[i];
+// }
+// console.log(value/100);

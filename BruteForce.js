@@ -3,7 +3,6 @@ class BruteForce {
     this.nodes = nodes;
     this.bestValue = -1;
     this.que = null;
-    this.count = 0;
   }
   getCostOfConnection(from, to, value = 0) {
     // wylicza koszt połączenia
@@ -12,7 +11,6 @@ class BruteForce {
     );
   }
   makeConnections(que, left){ // coś nie działa
-    this.count++;
     let arrat = [];
     // que.map(node => arrat.push(node.key));
     // console.log(arrat);

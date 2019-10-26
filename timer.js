@@ -2,12 +2,15 @@ class Timer{
     constructor(){
         this.count = [];
     }
-    start1(){
+    init(){
         this.start = process.hrtime()[1];
     }
-    count1(){
-        this.count.push(process.hrtime()[1] - this.start);
-        console.log(this.count);
+    submit(text){
+        const newTime = process.hrtime()[1] - this.start;
+        this.count.push(newTime);
+        if(text != null){
+            console.log(`Czas algorytmu ${text} to ${newTime}`);
+        }
     }
 }
 export default Timer;
