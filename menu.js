@@ -1,12 +1,11 @@
-const readline = require("readline").createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+const readline = require("readline-sync");
 import Timer from "./timer";
 import importer from "./importer";
+import Handler from "./Handler";
+import TreeNode from "./TreeNode";
+import BruteForce from "./BruteForce";
 let nodes = null;
 const timer = new Timer();
-
 
 function showMenu() {
   console.log("Wybierz jeden z podpunktów");
@@ -14,6 +13,7 @@ function showMenu() {
   console.log("1. Pokaż załadowny plik");
   console.log("2. BruteForce");
   console.log("3. Branch & Bound");
+  console.log("4. Wyjdz z programu");
 }
 
 function choose(number) {
@@ -25,15 +25,17 @@ function choose(number) {
       importFunc();
       break;
     case "2":
-      BruteForce();
+      bruteForce();
       break;
     case "3":
-      BranchBound();
+      branchBound();
       break;
+    case "4":
+      return;
     default:
       null;
   }
-  //init();
+  init();
 }
 
 function init() {
@@ -42,44 +44,41 @@ function init() {
 }
 
 function importFunc() {
-  let folder  = null;
-  readline.question("podaj folder", feedback => {
-    folder = feedback;
-    readline.question("podaj numer pliku", number => {
-      nodes = importer(folder, number);
-      //readline.close();
-    })
-    readline.close();
-  })
-  
-  //init();
+  //funckja importująca wskazany plik
+  try {
+    read("podaj nazwę pliku", name => {
+      nodes = importer(name);
+    });
+  } catch (err) {
+    console.log(err.code);
+  }
 }
 
 function read(text, callback) {
-  readline.question(text, number => {
-    callback(number);
-    //readline.close();
-  });
+  //funckja czytajaca dane wpisane do użytkownika i wywołująca funckję podaną jako paramtr z danymi jako parametrem
+  var feedback = readline.question(text);
+  callback(feedback);
 }
-function showNodes(){
-  if(nodesNotNull){
+function showNodes() {
+  if (nodesNotNull) {
     console.log(nodes);
   }
-  //init();
 }
-function BruteForce() {
+function bruteForce() {
+  //funckja uruchamiająca bruteForce
   if (nodesNotNull()) {
     const bruteForce = new BruteForce(nodes);
     timer.init();
     bruteForce.start();
-    console.log(bruteForce.bestValue);
+    console.log(`Najlepszy wynik : ${bruteForce.bestValue}`);
+    console.log(`Najlepsza droga:`);
     console.log(bruteForce.que);
     timer.submit("BruteForce");
   }
-  //init();
 }
 
-function BranchBound() {
+function branchBound() {
+  // funckja uruchamiająca branch bound
   if (nodesNotNull()) {
     const arrayOfTrees = [];
     const arrayOfValues = [];
@@ -98,14 +97,17 @@ function BranchBound() {
     const compare = (a, b) => {
       return a - b;
     };
+    timer.submit("Branch & Bound");
     const sortedValues = [...arrayOfValues].sort(compare);
     const index = arrayOfValues.indexOf(sortedValues[0]);
     const winner = [arrayOfValues[index], arrayOfNodes[index].nodes];
-    timer.submit("Bound & Branch");
+    console.log(`Najlepszy wynik : ${winner[0]}`);
+    console.log(`Najlepsza droga:`);
+    console.log(winner[1]);
   }
-  //init();
 }
 function nodesNotNull() {
+  //funckja sprawdzjąca czy plik z danymi zostal wczytany
   if (nodes == null) {
     console.log("Musisz zaimportować plik, by podjąć dalsze kroki");
     return false;

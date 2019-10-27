@@ -3,13 +3,13 @@ class Timer{
         this.count = [];
     }
     init(){
-        this.start = process.hrtime()[1];
+        this.start = process.hrtime(); //odpalamy czas
     }
     submit(text){
-        const newTime = process.hrtime()[1] - this.start;
-        this.count.push(newTime);
+        const newTime = process.hrtime(this.start); //obliczamy czas
+        this.count.push(newTime[0]+newTime[1]);
         if(text != null){
-            console.log(`Czas algorytmu ${text} to ${newTime}`);
+            console.log(`Czas algorytmu ${text} to ${newTime[0]+newTime[1]} nanosekund`);
         }
     }
 }

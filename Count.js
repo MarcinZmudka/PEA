@@ -4,7 +4,7 @@ class Count {
       this.que = [];
       this.left = [];
     }
-    count(nodes){
+    count(nodes){ //funkcja obliczająca wagę drogi pomiędzy wierzchołkami przekazanymi w argumencie 
         this.down=0;
         nodes.map( (node, index, array) => {
             let newIndex = index+1;
@@ -14,7 +14,6 @@ class Count {
         })
     }
     getValue(){
-        //console.log(this.down);
         return this.down;
     }
 }
