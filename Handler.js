@@ -1,4 +1,3 @@
-import UpReckon from "./Reckon.js";
 import Count from "./Count.js";
 
 class Handler {
@@ -7,7 +6,7 @@ class Handler {
     generations: null, // wszystkie generacje
     valuesOfGenerations: [], //wartości wszystkcih generacji
   };
-  setGenerations(kids) {
+  setGenerations(kids) { // ustawia dzieci najlepszego węzła jako następną generacje
     this.state.generations = kids;
     this.state.bestGeneration = null;
     this.state.valuesOfGenerations = [];
@@ -20,7 +19,7 @@ class Handler {
       this.state.valuesOfGenerations.push(counter.getValue());
     });
   }
-  findTheBestValue() {
+  findTheBestValue() { //znajdujemy najlepszą wartość 
     const compare = (a, b) => {
       return a - b;
     };
@@ -33,7 +32,7 @@ class Handler {
     this.state.bestGeneration.makeChildren();
     this.setGenerations(this.state.bestGeneration.getKids());
   }
-  start() {
+  start() { //rozpoczyna działanie algorytmu
     this.countValuesOfGenerations();
     this.findTheBestValue();
     while (this.state.generations[0].getLengthOfArrayOfNodes() > 1) {
@@ -43,12 +42,11 @@ class Handler {
     }
     this.addLastStep();
   }
-  addLastStep(){
+  addLastStep(){ //dodaje przejście na początek
     const first = this.state.bestGeneration.nodes[0];
     const last = this.state.bestGeneration.nodes[this.state.bestGeneration.nodes.length-1];
     const value  = last.elements[first.key].attributes.cost;
-    this.state.valuesOfGenerations[0] +=   parseFloat(value);
+    this.state.valuesOfGenerations[0] += parseFloat(value);
   }
 }
-
 export default Handler;

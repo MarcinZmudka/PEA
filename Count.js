@@ -17,6 +17,4 @@ class Count {
         return this.down;
     }
 }
-
-
 export default Count;
