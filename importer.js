@@ -12,8 +12,9 @@ function importer(name) {
     let i = 0;
     all.elements[0].elements[5].elements.map(node => (node.key = i++)); //nadanie każdemu wierzchołkowi inwidaulnego numeru
     nodes = all.elements[0].elements[5].elements; // wyłuskanie grafu
+    nodes.map(node => node.visited = false);
   } catch (err) {
-    console.log(err);
+    console.error("Brak pliku o podanej nazwie w folderze files");
   }
   return nodes;
 }

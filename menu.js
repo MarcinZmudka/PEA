@@ -1,11 +1,12 @@
 const readline = require("readline-sync");
 import Timer from "./timer";
 import importer from "./importer";
-import Handler from "./Handler";
 import TreeNode from "./TreeNode";
 import BruteForce from "./BruteForce";
+import BnB from "./BnB";
 let nodes = null;
 const timer = new Timer();
+
 
 function showMenu() {
   console.log("Wybierz jeden z podpunktów");
@@ -15,11 +16,17 @@ function showMenu() {
   console.log("3. Branch & Bound");
   console.log("4. Wyjdz z programu");
 }
-
+function test(){
+  nodes = importer("n5v0");
+  console.log(nodes[0].elements);  
+  console.log(nodes[0].elements[0].elements);  
+  console.log(nodes[0].elements ==nodes[0].elements[1].elements);
+}
 function choose(number) {
   switch (number) {
     case "1":
-      showNodes();
+      //showNodes();
+      test();
       break;
     case "0":
       importFunc();
@@ -46,7 +53,7 @@ function init() {
 function importFunc() {
   //funckja importująca wskazany plik
   try {
-    read("podaj nazwę pliku", name => {
+    read("podaj nazwę pliku\n", name => {
       nodes = importer(name);
     });
   } catch (err) {
@@ -70,40 +77,39 @@ function bruteForce() {
     const bruteForce = new BruteForce(nodes);
     timer.init();
     bruteForce.start();
+    timer.submit("BruteForce");
     console.log(`Najlepszy wynik : ${bruteForce.bestValue}`);
     console.log(`Najlepsza droga:`);
-    console.log(bruteForce.que);
-    timer.submit("BruteForce");
+    let path = "";
+    bruteForce.que.map((node,index) => {
+      if(index == 0){
+        path += `${node.key}`;
+      }
+      else{
+        path += ` => ${node.key}`;
+      }
+    })
   }
 }
 
 function branchBound() {
   // funckja uruchamiająca branch bound
   if (nodesNotNull()) {
-    const arrayOfTrees = [];
-    const arrayOfValues = [];
-    const arrayOfNodes = [];
-    const handler = new Handler();
-
+    const bnb = new BnB(nodes);
     timer.init();
-    for (let i = 0; i < nodes.length; i++) {
-      arrayOfTrees.push(new TreeNode(0, [nodes[i]], nodes));
-      handler.setGenerations([arrayOfTrees[i]]);
-      handler.start();
-      arrayOfValues.push(handler.state.valuesOfGenerations);
-      arrayOfNodes.push(handler.state.bestGeneration);
-    }
-    //znajdowanie wyniku
-    const compare = (a, b) => {
-      return a - b;
-    };
+    bnb.start();
     timer.submit("Branch & Bound");
-    const sortedValues = [...arrayOfValues].sort(compare);
-    const index = arrayOfValues.indexOf(sortedValues[0]);
-    const winner = [arrayOfValues[index], arrayOfNodes[index].nodes];
-    console.log(`Najlepszy wynik : ${winner[0]}`);
-    console.log(`Najlepsza droga:`);
-    console.log(winner[1]);
+    console.log(`Wynik to : ${bnb.final}`);
+    let path = "";
+    bnb.path.nodes.map((node,index, Array) => {
+      if(index == 0){
+        path += `${node.key}`;
+      }
+      else{
+        path += ` => ${node.key}`;
+      }
+    })
+    console.log(path);
   }
 }
 function nodesNotNull() {
